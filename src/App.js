@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+// Users data
+import { users } from './users';
+
+// App Components
+import Navbar from './components/layout/Navbar';
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import UserList from './components/users/UserList';
+import User from './components/users/User';
+import NotFound from './components/pages/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Navbar />
+      <Routes>
+        {/* Route render UI if location matches the route's path */}
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/users" element={<UserList users={users} />} />
+        <Route path="/users/:login" element={<User users={users} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Fragment>
   );
 }
 
